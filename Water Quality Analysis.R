@@ -15,12 +15,43 @@ colnames(raw_data)
 data <- raw_data[complete.cases(raw_data),]
 
 
+## imbalance of Potability
+ggplot2::ggplot(data,aes(Potability))+
+  ggplot2::geom_bar()
 
 
+##
+ggplot(data,aes(ph , fill  = factor(Potability)))+
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
 
 
+##
+ggplot(data,aes( Hardness, fill  = factor(Potability)))+
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
 
+##
+ggplot(data,aes(Chloramines , fill  = factor(Potability)))+
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
 
+##
+ggplot(data,aes(Sulfate, fill  = factor(Potability)))+
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
+
+##
+ggplot(data,aes( Conductivity, fill  = factor(Potability)))+
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
+
+##
+ggplot(data,aes( Organic_carbon, fill  = factor(Potability)))+
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
+
+##
+ggplot(data,aes( Trihalomethanes, fill  = factor(Potability)))+
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
+
+##
+ggplot(data,aes( Turbidity, fill  = factor(Potability)))+
+  geom_histogram(position = "identity", alpha = 0.2, bins = 50)
 
 
 
