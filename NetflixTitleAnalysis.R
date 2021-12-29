@@ -19,21 +19,21 @@ ggplot(plot_data, aes(x="",y = freq,fill = x)) +
 
 
 #removing empty strings values
-filtered_data <-raw_data %>% filter(director !="")
-filtered_data$director
 
-test <- head(filtered_data$director)
-test
- test <-raw_data %>% 
+ filterd_data <-raw_data %>% 
   mutate(director = strsplit(as.character(director), ", ")) %>%
   unnest(director)
 
- test$director
- plot_data2 <-plyr::count(test$director)
+ 
+ plot_data2 <-plyr::count(filterd_data $director)
 plotdata2 <-plot_data2 %>% arrange(desc(freq)) %>% head(5) %>% arrange(desc(freq))
 
 
  ggplot(plotdata2,aes(x=reorder(x, freq),y =freq))+
    geom_bar(stat = "identity")+
+   labs(x = "Actors")+
    coord_flip()
+ 
+ ##Top 5 Actors on Netflix
+ 
    
