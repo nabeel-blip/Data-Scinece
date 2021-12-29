@@ -49,4 +49,14 @@ plotdata2 <-plot_data2 %>% arrange(desc(freq)) %>% head(5) %>% arrange(desc(freq
    labs(x = "Actors")+
    coord_flip()
    
+##Trend of content produced over the years on Netflix
+plot_data3<-raw_data %>% 
+   group_by(type,release_year) %>%
+    summarise(count =n()) 
+
+ggplot()+
+  geom_line(data = plot_data3 %>% filter(type=="Movie" & release_year >=2010 ),aes(release_year,count))+
+  geom_line(data = plot_data3 %>% filter(type=="TV Show" &  release_year >=2010),aes(release_year,count))
+
+head(raw_data$release_year)
  
