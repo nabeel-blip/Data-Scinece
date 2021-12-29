@@ -31,9 +31,22 @@ plotdata2 <-plot_data2 %>% arrange(desc(freq)) %>% head(5) %>% arrange(desc(freq
 
  ggplot(plotdata2,aes(x=reorder(x, freq),y =freq))+
    geom_bar(stat = "identity")+
-   labs(x = "Actors")+
+   labs(x = "Directors")+
    coord_flip()
  
  ##Top 5 Actors on Netflix
+ filterd_data <-raw_data %>% 
+   mutate(cast = strsplit(as.character(cast), ", ")) %>%
+   unnest(cast)
  
+ 
+ plot_data2 <-plyr::count(filterd_data $cast)
+ plotdata2 <-plot_data2 %>% arrange(desc(freq)) %>% head(5) %>% arrange(desc(freq))
+ 
+ 
+ ggplot(plotdata2,aes(x=reorder(x, freq),y =freq))+
+   geom_bar(stat = "identity")+
+   labs(x = "Actors")+
+   coord_flip()
    
+ 
