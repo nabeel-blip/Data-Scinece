@@ -7,7 +7,7 @@ dim(raw_data)
 head(raw_data$rating)
 
 
-#plot Distribution of Content Ratings on Netflix
+##plot Distribution of Content Ratings on Netflix
 plot_data <-plyr::count(raw_data$rating)
 plot_data
 
@@ -15,4 +15,25 @@ ggplot(plot_data, aes(x="",y = freq,fill = x)) +
   geom_bar(width=1,stat = "identity",color= "white") +
   coord_polar("y",start=0)
 
+##Top 5 Actors and Directors
 
+
+#removing empty strings values
+filtered_data <-raw_data %>% filter(director !="")
+filtered_data$director
+
+test <- head(filtered_data$director)
+test
+ test <-raw_data %>% 
+  mutate(director = strsplit(as.character(director), ", ")) %>%
+  unnest(director)
+
+ test$director
+ plot_data2 <-plyr::count(test$director)
+plotdata2 <-plot_data2 %>% arrange(desc(freq)) %>% head(5) %>% arrange(desc(freq))
+
+
+ ggplot(plotdata2,aes(x=reorder(x, freq),y =freq))+
+   geom_bar(stat = "identity")+
+   coord_flip()
+   
