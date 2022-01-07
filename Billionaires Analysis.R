@@ -35,3 +35,20 @@ ggplot(plot_data,aes(x="",y=freq,fill = factor(x)))+
   theme_void()+
   theme(legend.title=element_blank())
 
+plot_data <- plyr::count(data$Industry) %>% arrange(desc(freq)) %>% head(5)
+
+
+ggplot(plot_data,aes(x="",y=freq,fill = factor(x)))+
+  geom_bar(stat = "identity",width = 1)+
+  coord_polar("y", start=0)+
+  theme_void()+
+  theme(legend.title=element_blank())
+
+plot_data <- plyr::count(data$Country) %>% arrange(desc(freq)) %>% head(5)
+
+
+ggplot(plot_data,aes(x="",y=freq,fill = factor(x)))+
+  geom_bar(stat = "identity",width = 1)+
+  coord_polar("y", start=0)+
+  theme_void()+
+  theme(legend.title=element_blank())
