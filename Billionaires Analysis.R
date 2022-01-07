@@ -26,3 +26,12 @@ summary(plot_data)
 ggplot(plot_data,aes(x=reorder(Name,-NetWorth),fill= NetWorth))+
   geom_bar()
 
+plot_data <- plyr::count(data$Source) %>% arrange(desc(freq)) %>% head(5)
+
+
+ggplot(plot_data,aes(x="",y=freq,fill = factor(x)))+
+  geom_bar(stat = "identity",width = 1)+
+  coord_polar("y", start=0)+
+  theme_void()+
+  theme(legend.title=element_blank())
+
