@@ -33,5 +33,15 @@ set.seed(1234)
 wordcloud(words = df$word, freq = df$freq, min.freq = 1,max.words=800, random.order=FALSE, rot.per=0.35,colors=brewer.pal(8, "Dark2"))
 
 
+sentimentanalysis<-analyzeSentiment(newdata$text)
+newdata$Sentiment_Score<-sentimentanalysis$SentimentQDAP
+newdata$Sentiment<-convertToDirection(sentimentanalysis$SentimentQDAP)
+Positive= sum(newdata$Sentiment=='positive')
+Negative= sum(newdata$Sentiment=='negative')
+Neutral<-sum(newdata$Sentiment=="neutral")
+paste("Positive: ",Positive)
+paste("Negative: ",Negative)
+paste("Neutral:  ",Neutral)
+
 
 
