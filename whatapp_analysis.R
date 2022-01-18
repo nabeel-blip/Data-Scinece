@@ -1,19 +1,19 @@
 install.packages("wordcloud") 
-library(wordcloud)
 install.packages("RColorBrewer")
-library(RColorBrewer)
 install.packages("wordcloud2")
-library(wordcloud2)
 install.packages("tm")
-library(tm)
 install.packages("dplyr")
+library(wordcloud2)
+library(RColorBrewer)
+library(tm)
+library(wordcloud)
+library(dplyr)
+library(rwhatsapp)
+library(ggplot2)
 
-
-data  <-rwa_read("C:\\Users\\Nabeel Hassan Khan\\Desktop\\Rstudio\\Assignments\\chat.txt")
+data  <-rwa_read("C:\\Users\\Nabeel Hassan Khan\\Desktop\\Rstudio\\Data Scinece assginments\\chat.txt")
 
 keeps <-c("time","author","text","emoji","emoji_name")
-
-colnames(data)
 
 final_form <- data[keeps]
 
@@ -36,9 +36,8 @@ for (i in 1:509) {
   }
 }
 
-colnames()
 
-?count(data_smilie)
+
 
 ggplot(plyr::count(data_smilie,"author"), aes(x=author,y = freq,fill = author))+ 
   geom_bar(stat="identity")
@@ -53,11 +52,11 @@ ggplot(data_smilie, aes(x=factor(author),fill = emoji))+
 
 colnames(data)
 
-#Create a vector containing only the text
 
 
-mid <-data %>% filter(author=="D")
-# Create a corpus  
+
+mid <-data %>% filter(author=="IceBear 78")
+
 mid <- mid %>% filter(text !="<Media omitted>" )
 text<- mid %>% select(text)
 
@@ -108,6 +107,17 @@ for(i in authors ){
   print(paste("avg word per msg",avrage))
   print(paste("Media msgs",nrow(users_data %>% filter(text == "<Media omitted>"))))
   print(paste("emoji's sent",nrow(data_smilie %>% filter(author == i))))
-  
-  
 }
+
+#######sentiment analysis
+
+
+sentimentanalysis<-analyzeSentiment(final_form$text)
+newdata$Sentiment_Score<-sentimentanalysis$SentimentQDAP
+newdata$Sentiment<-convertToDirection(sentimentanalysis$SentimentQDAP)
+Positive= sum(newdata$Sentiment=='positive')
+Negative= sum(newdata$Sentiment=='negative')
+Neutral<-sum(newdata$Sentiment=="neutral")
+paste("Positive: ",Positive)
+paste("Negative: ",Negative)
+paste("Neutral:  ",Neutral)
